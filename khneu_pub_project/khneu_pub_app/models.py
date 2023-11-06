@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+# from autoslug import AutoSlugField
 
 # class Faculty(models.Model):
 #     name = models.CharField(max_length=255)
-#     slug = 
+#     slug = AutoSlugField(populate_from ='name',unique=True)
+    
 
 
 

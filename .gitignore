@@ -1,0 +1,32 @@
+# Ignore Django database file
+khneu_pub_project/db.sqlite3
+
+# Ignore Python byte compiled files
+*.pyc
+__pycache__/
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore environment-related files
+.env
+
+# Ignore IDE-specific files
+.vscode/
+*.pyc
+*.pyo
+*.pyc
+*.pyo
+*.vscode/
+
+# Ignore log files
+logs/
+
+# Ignore PostgreSQL database backup files
+*.bak
+
+# Ignore virtual environment folder
+venv/
+myvenv/
+env/

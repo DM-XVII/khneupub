@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'khneu_pub_app',
     'autoslug',
+    'ckeditor',
 
 ]
 

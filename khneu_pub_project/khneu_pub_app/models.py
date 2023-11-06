@@ -1,19 +1,46 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-# from autoslug import AutoSlugField
+from autoslug import AutoSlugField
+from ckeditor.fields import RichTextField
 
-# class Faculty(models.Model):
-#     name = models.CharField(max_length=255)
-#     slug = AutoSlugField(populate_from ='name',unique=True)
-    
-
-
-
-class Specialization(models.Model):
+class Faculty(models.Model):
     name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from ='name',unique=True)
+    image = models.ImageField(upload_to='images/faculty/')
 
     def __str__(self):
         return self.name
+ 
+class Specialization(models.Model):
+    name = models.CharField(max_length=255)
+    faculty = models.ForeignKey('Faculty',on_delete=models.CASCADE)
+    slug = AutoSlugField(populate_from ='name',unique=True)
+    image = models.ImageField(upload_to='images/specialization/')
+
+
+    def __str__(self):
+        return self.name 
+    
+class Article(models.Model):
+    name = models.CharField(max_length=255)
+    description = RichTextField()
+    image = models.ImageField(upload_to='images/article/')
+    specialization = models.ForeignKey('Specialization',on_delete=models.CASCADE)
+    slug = AutoSlugField(populate_from ='name',unique=True)
+    content = RichTextField()
+    created_by = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
+    upload_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name 
+    
+class Favorite(models.Model):
+    user = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
+    article = models.ForeignKey('Article',on_delete=models.CASCADE)
+
+
+
+
 
 
 class CustomUserManager(BaseUserManager):

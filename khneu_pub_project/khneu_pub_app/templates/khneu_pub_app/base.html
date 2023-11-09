@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/css" href="{% static 'khneu_pub_app/css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <div class="centered-content">
+                <input type="text" placeholder="Search" class="search-field">
+            </div>
+            <div class="right-links">
+                <a>Створити</a>
+                <a>Кабінет</a>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-and-content">
+        <div class="side-bar">
+            <img src="">
+            <ul>
+                <li>Головна</li>
+                <li>Студенти</li>
+                <li>Викладачі</li>
+                <li>Факультети</li>
+                <li>Спеціальності</li>
+                <li>Контакти</li>
+                <li>Докладніше</li>
+            </ul>
+        </div>
+        <div class="main-content">
+            {%block content%}
+            {%endblock content%}
+        </div>
+    </div>
+</body>
+</html>

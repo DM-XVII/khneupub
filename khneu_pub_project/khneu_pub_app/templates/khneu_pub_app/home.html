@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <H1>Home Page</H1>
-</body>
-</html>
+{%extends 'khneu_pub_app/base.html'%}
+{%block content%}
+    <div class="sections_container">
+        {%for f in faculties%}
+            <div class="sections">
+                <a href="{{f.get_absolute_url}}" class="link"><img src="{{f.image.url}}" alt="Image"></a>
+                <h1><a href="{{f.get_absolute_url}}" class="link">{{f.name}}</a></h1>
+            </div>
+        {%endfor%}
+    </div>
+    
+{%endblock content%}

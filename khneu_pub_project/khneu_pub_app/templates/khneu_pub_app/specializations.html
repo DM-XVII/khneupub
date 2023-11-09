@@ -1,0 +1,12 @@
+{%extends 'khneu_pub_app/base.html'%}
+{%block content%}
+    <div class="sections_container">
+        {%for s in specializations%}
+            <div class="sections">
+                <a href="{{s.get_absolute_url}}" class="link"><img src="{{s.image.url}}" alt="Image"></a>
+                <h1><a href="{{s.get_absolute_url}}" class="link">{{s.name}}</a></h1>
+            </div>
+        {%endfor%}
+    </div>
+    
+{%endblock content%}

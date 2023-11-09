@@ -1,0 +1,115 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body, html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background-color: #eeeeee;
+    flex-direction: column;
+    font-family: Arial, sans-serif; /* Example font family */
+}
+a {
+    text-decoration: none;
+    color: inherit; /* Ensures the link text color remains the same */
+}
+.top-bar {
+    background-color: #FFFFFF;
+    padding: 10px;
+    height: 50px;
+    /* Existing styles for .top-bar */
+}
+
+.top-bar-inner {
+    display: flex;
+    justify-content: space-between; /* Distribute content horizontally */
+    align-items: center; /* Center the content vertically */
+}
+
+.centered-content {
+    display: flex;
+    align-items: center;
+}
+
+.search-field {
+    background-color:#e7e7e7;
+    margin-left: 750px;
+    padding: 8px;
+    width: 550px; /* Adjust width as needed */
+    border-radius: 15px;
+}
+
+.right-links a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.right-links a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-and-content {
+    color:#F6F4EB;
+    display: flex;
+    flex: 1; /* Fill remaining vertical space */
+}
+
+.side-bar {
+    background-color: #022B3A;
+    width: 350px;
+    padding: 20px;
+    /* Existing styles for .side-bar */
+}
+
+.side-bar ul {
+    list-style: none;
+    margin-top:30px;
+    margin-left: 20px;
+}
+
+.side-bar ul li {
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    color: #000000;
+    /* Other existing styles for .main-content */
+}
+
+.sections_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+}
+
+.sections{
+    height: 300px;  /*412.5 495px */
+    width: 375px;  /*329px*/
+    background-color: #1F7A8C;
+    color: #F6F4EB;
+    border-radius: 25px;
+    overflow: hidden;
+    object-fit: cover;
+    font-size: 17px;
+    text-align: center;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sections img{
+    height: 185.5px; /*222.5 267px*/
+    width: 375px; /*395 475px*/
+}

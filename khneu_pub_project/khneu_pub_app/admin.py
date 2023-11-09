@@ -6,4 +6,3 @@ admin.site.register(Faculty)
 admin.site.register(Specialization)
 admin.site.register(Favorite)
 admin.site.register(Article)
-

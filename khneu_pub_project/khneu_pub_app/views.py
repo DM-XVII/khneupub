@@ -5,6 +5,7 @@ from .forms import CustomUserCreationForm
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 
+from .models import *
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -30,5 +31,15 @@ def custom_login(request):
             pass
     return render(request, 'khneu_pub_app/login.html')
 
+
+
 def home(request):
-    return render(request,'khneu_pub_app/home.html')
+    faculties = Faculty.objects.all()
+    context = {'faculties':faculties}
+    return render(request,'khneu_pub_app/home.html',context=context)
+
+def specializations(request):
+    specializations = Specialization.objects.all()
+    context = {'specializations':specializations}
+    return render(request,'khneu_pub_app/home.html',context=context)
+

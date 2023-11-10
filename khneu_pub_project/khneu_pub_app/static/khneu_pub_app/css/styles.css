@@ -83,7 +83,7 @@ a {
 
 .main-content {
     flex: 1;
-    padding: 20px;
+    padding: 10px;
     overflow-y: auto;
     color: #000000;
     /* Other existing styles for .main-content */
@@ -112,4 +112,85 @@ a {
 .sections img{
     height: 185.5px; /*222.5 267px*/
     width: 375px; /*395 475px*/
+}
+
+
+
+.article-container {
+    margin: 20px;
+}
+
+.article-content-wrapper {
+    background-color: white;
+    border-radius: 15px;
+    margin: 20px;
+    padding: 20px;
+    max-height: 750px;  
+    overflow-y: auto;   /* Enable vertical scrolling if content exceeds the max height */
+    
+}
+
+.article-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.article-photo {
+    text-align: center; /* Center the photo */
+    margin-bottom: 20px;
+}
+
+.article-photo img {
+    max-width: 100%;
+    height: auto;
+    width: 637px;
+    height: 358px;
+}
+
+.article-meta {
+    margin-bottom: 20px;
+}
+
+.article-meta p {
+    color: #888;
+    margin-left: 20px; /* Add left margin for the "Created by" and date */
+}
+.article-content p {
+    padding: 5px;
+}
+
+.article-content h3 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.article-content {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.center{
+    text-align: center;
+}
+
+.article-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.article-buttons button {
+    margin: 0 10px; /* Adjust the horizontal spacing between buttons */
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #1F7A8C;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    width: 175px;
+}
+
+.article-buttons button:hover {
+    background-color: #4682A9;
 }

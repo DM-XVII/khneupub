@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
@@ -8,6 +9,9 @@ class Faculty(models.Model):
     slug = AutoSlugField(populate_from ='name',unique=True)
     image = models.ImageField(upload_to='images/faculty/')
 
+    def get_absolute_url(self):
+        return reverse('faculty',kwargs={'slug':self.slug})
+
     def __str__(self):
         return self.name
  
@@ -16,6 +20,9 @@ class Specialization(models.Model):
     faculty = models.ForeignKey('Faculty',on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from ='name',unique=True)
     image = models.ImageField(upload_to='images/specialization/')
+
+    def get_absolute_url(self):
+        return reverse('specialization',kwargs={'slug':self.slug})
 
 
     def __str__(self):
@@ -30,6 +37,9 @@ class Article(models.Model):
     content = RichTextField()
     created_by = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('article',kwargs={'slug':self.slug})
 
     def __str__(self):
         return self.name 

@@ -1,0 +1,26 @@
+{% extends 'khneu_pub_app/base.html' %}
+
+
+{% block content %}
+    <div class="article-container">
+        <div class="article-content-wrapper">
+            <h1 class="center">{{ article.name }}</h1>
+            <div class="article-photo">
+                <img src="{{ article.image.url }}" alt="{{ article.name }}">
+            </div>
+            <div class="article-meta">
+                <p>Created by: {{ article.created_by }} | {{ article.upload_date }}</p>
+            </div>
+            <div class="article-content">
+                <h2>Description</h2>
+                {{ article.description|safe }}
+                {{ article.content|safe }}
+            </div>
+        </div>
+        <div class="article-buttons">
+            <button>Вподобати</button>
+            <button>Редагувати</button>
+            <button>Видалити</button>
+        </div>
+    </div>
+{% endblock %}

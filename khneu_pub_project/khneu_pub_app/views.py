@@ -53,3 +53,18 @@ def get_article(request,slug):
     article = Article.objects.get(slug=slug)
     context = {'article':article}
     return render(request,'khneu_pub_app/article.html',context=context)
+
+
+#Later
+def get_about(request):
+    return render(request,'khneu_pub_app/about.html')
+def get_students(request):
+    return render(request,'khneu_pub_app/subjects.html')
+def get_teachers(request):
+    return render(request,'khneu_pub_app/subjects.html')
+def get_contacts(request):
+    return render(request,'khneu_pub_app/contacts.html')
+def get_specs(request):
+    specs = Specialization.objects.all()
+    context = {'subjects':specs}
+    return render(request,'khneu_pub_app/subjects.html',context=context)

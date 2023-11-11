@@ -1,10 +1,8 @@
-/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 
 body, html {
     height: 100%;
@@ -14,64 +12,83 @@ body {
     display: flex;
     background-color: #eeeeee;
     flex-direction: column;
-    font-family: Arial, sans-serif; /* Example font family */
+    font-family: Arial, sans-serif;
 }
+
 a {
     text-decoration: none;
-    color: inherit; /* Ensures the link text color remains the same */
+    color: inherit;
 }
+
 .top-bar {
     background-color: #FFFFFF;
     padding: 10px;
     height: 50px;
-    /* Existing styles for .top-bar */
 }
 
 .top-bar-inner {
     display: flex;
-    justify-content: space-between; /* Distribute content horizontally */
-    align-items: center; /* Center the content vertically */
+    justify-content: space-between;
+    align-items: center;  /* Center items vertically */
+    height: 100%;  /* Ensure top bar takes full height */
+    padding: 0 20px; /* Optional: Add some padding to the sides */
 }
 
-.centered-content {
+.search-field-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the content horizontally */
+    flex-grow: 1; /* Grow to fill available space */
+}
+
+.search-field {
+    background-color: #fff;
+    border: 2px solid #1F7A8C;
+    padding: 9px;
+    width: 450px;
+    margin-left:250px;
+    border-radius: 50px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-field:focus {
+    outline: none;
+    border-color: #4682A9;
+    box-shadow: 0 0 10px rgba(31, 122, 140, 0.5);
+}
+.top-bar-links {
     display: flex;
     align-items: center;
 }
 
-.search-field {
-    background-color:#e7e7e7;
-    margin-left: 750px;
-    padding: 8px;
-    width: 550px; /* Adjust width as needed */
-    border-radius: 15px;
-}
-
-.right-links a {
+.top-bar-links a {
     margin-left: 15px;
-    text-decoration: none;
-    color: #000000;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #1F7A8C;
+    color: #FFFFFF;
+    transition: background-color 0.3s ease;
 }
 
-.right-links a:hover {
-    text-decoration: underline;
+.top-bar-links a:hover {
+    background-color: #4682A9;
 }
 
 .sidebar-and-content {
-    color:#F6F4EB;
+    color: #F6F4EB;
     display: flex;
-    flex: 1; /* Fill remaining vertical space */
+    flex: 1;
 }
 
 .side-bar {
     background-color: #022B3A;
     width: 350px;
     padding: 20px;
-    /* Existing styles for .side-bar */
 }
 
 .side-bar ul {
     list-style: none;
-    margin-top:30px;
+    margin-top: 30px;
     margin-left: 20px;
 }
 
@@ -86,8 +103,8 @@ a {
     padding: 10px;
     overflow-y: auto;
     color: #000000;
-    /* Other existing styles for .main-content */
 }
+
 
 .sections_container {
     display: flex;

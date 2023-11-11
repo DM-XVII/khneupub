@@ -54,6 +54,20 @@ def get_article(request,slug):
     context = {'article':article}
     return render(request,'khneu_pub_app/article.html',context=context)
 
+def search(request):
+    if request.method == 'POST':
+        search_query = request.POST['search_query']
+        articles = Article.objects.filter(name__icontains = search_query)
+        context = {'subjects':articles}
+        return render(request,'khneu_pub_app/subjects.html',context = context)
+    else:
+        return redirect('home')
+
+
+
+
+    return render(request,'khneu_pub_app/about.html')
+
 
 #Later
 def get_about(request):

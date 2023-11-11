@@ -8,6 +8,7 @@ urlpatterns = [
     path('faculty/<slug:slug>', views.get_faculty, name='faculty'),
     path('specialization/<slug:slug>', views.get_specialization, name='specialization'),
     path('article/<slug:slug>', views.get_article, name='article'),
+    path('search/>', views.search, name='search'),
 
 
 #Later

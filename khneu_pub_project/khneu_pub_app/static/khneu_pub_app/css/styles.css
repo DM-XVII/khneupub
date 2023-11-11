@@ -56,6 +56,28 @@ a {
     border-color: #4682A9;
     box-shadow: 0 0 10px rgba(31, 122, 140, 0.5);
 }
+.search-button {
+    display: inline-block;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #4682A9;
+    color: #4682A9;
+    background-color: #fff;
+    border-radius: 7px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  /* Hover effect */
+  .search-button:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #fff;
+  }
+
 .top-bar-links {
     display: flex;
     align-items: center;

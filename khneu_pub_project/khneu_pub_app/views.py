@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm
-
+from .utils import custom_pagination
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 
@@ -46,7 +46,9 @@ def get_faculty(request,slug):
 
 def get_specialization(request,slug):
     articles = Article.objects.filter(specialization__slug=slug)
-    context = {'subjects':articles}
+    page = request.GET.get('page', 1)
+    page_obj = custom_pagination(page,articles,2)
+    context = {'subjects':page_obj}
     return render(request,'khneu_pub_app/subjects.html',context=context)
 
 def get_article(request,slug):
@@ -63,10 +65,6 @@ def search(request):
     else:
         return redirect('home')
 
-
-
-
-    return render(request,'khneu_pub_app/about.html')
 
 
 #Later

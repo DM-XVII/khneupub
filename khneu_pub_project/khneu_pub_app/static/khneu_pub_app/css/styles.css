@@ -233,3 +233,49 @@ a {
 .article-buttons button:hover {
     background-color: #4682A9;
 }
+
+
+
+/* Pagination */
+  /* Pagination Container */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Pagination Links */
+  .pagination a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 3px;
+    margin: 0 3px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .pagination a:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* Ellipsis */
+  .ellipsis {
+    margin: 0 3px;
+  }
+  
+  /* Active Page */
+  .pagination .active {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin: 0 3px;
+  }
+  
+  /* Previous and Next Links */
+  .pagination .previous-link , .pagination .next-link {
+    margin: 0;
+  }

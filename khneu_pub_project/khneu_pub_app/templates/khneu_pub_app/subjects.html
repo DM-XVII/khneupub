@@ -12,4 +12,37 @@
         {%endfor%}
     </div>
     
+
+
+    <div class="pagination">
+        <span class="step-links">
+          {% if subjects.has_previous %}
+            <a href="?page={{ subjects.previous_page_number }}" class="previous-link">&laquo;</a>
+          {% endif %}
+          
+          {% if subjects.number > 3 %}
+            <a href="?page=1" >1</a>
+            <span class="ellipsis">...</span>
+          {% endif %}
+          
+          {% for i in subjects.paginator.page_range %}
+            {%if i == subjects.number%}
+              <span class="active">{{i}}</span>
+            {% elif i > subjects.number|add:'-3' and i < subjects.number|add:'3' %}
+              <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+          {% endfor %}
+          
+          {% if subjects.number < subjects.paginator.num_pages|add:'-2' %}
+            <span class="ellipsis">...</span>
+            <a href="?page={{subjects.paginator.num_pages}}">{{subjects.paginator.num_pages}}</a>
+          {% endif %}
+          
+          {% if subjects.has_next %}
+            <a href="?page={{ subjects.next_page_number }}" class="next-link">&raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+
+
 {%endblock content%}

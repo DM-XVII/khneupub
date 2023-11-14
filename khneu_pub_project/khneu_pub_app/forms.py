@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser,Specialization
+from .models import CustomUser,Specialization,Article
 
 
 class CustomUserCreationForm(forms.ModelForm):
@@ -16,3 +16,8 @@ class CustomUserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+class ArticleCreationForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ('name','description','image','specialization','content')

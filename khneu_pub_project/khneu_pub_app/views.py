@@ -3,7 +3,8 @@ from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm
 from .utils import custom_pagination
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from django.utils import timezone
+from .forms import CustomUserCreationForm,ArticleCreationForm
 
 from .models import *
 def register(request):
@@ -55,6 +56,25 @@ def get_article(request,slug):
     article = Article.objects.get(slug=slug)
     context = {'article':article}
     return render(request,'khneu_pub_app/article.html',context=context)
+
+def create_article(request):
+    if request.method == 'POST':
+        form = ArticleCreationForm(request.POST,request.FILES)
+        
+        if form.is_valid():
+            form.instance.created_by = request.user
+            form.instance.upload_date = timezone.now()
+            
+            form.save()
+            return redirect('home')
+    else:
+        form = ArticleCreationForm()
+    
+    return render(request,'khneu_pub_app/create_article.html',{'form':form})
+
+
+
+
 
 def search(request):
     if request.method == 'POST':

@@ -9,6 +9,7 @@ urlpatterns = [
     path('specialization/<slug:slug>', views.get_specialization, name='specialization'),
     path('article/<slug:slug>', views.get_article, name='article'),
     path('search/>', views.search, name='search'),
+    path('create_article/>', views.create_article, name='create_article'),
 
 
 #Later

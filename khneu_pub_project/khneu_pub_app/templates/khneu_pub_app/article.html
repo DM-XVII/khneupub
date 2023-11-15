@@ -18,11 +18,11 @@
             </div>
         </div>
         <div class="article-buttons">
-            {% if user.is_authenticated %}
+            {%if is_favorited%}
+                <a href="{% url 'add_to_favorite' article.slug %}" class="article-button is-favorited-button">Remove from Favorites</a>
+            {%else%}
                 <a href="{% url 'add_to_favorite' article.slug %}" class="article-button">Add to Favorites</a>
-            {% else %}
-                <p>Login to add to favorites</p>
-            {% endif %}
+            {%endif%}
             <a class="article-button">Редагувати</a>
             <a class="article-button">Видалити</a>
         </div>

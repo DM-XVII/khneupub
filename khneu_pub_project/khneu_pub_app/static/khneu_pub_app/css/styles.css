@@ -221,7 +221,7 @@ a {
     margin-top: 20px;
 }
 
-.article-buttons a {
+.article-button {
     margin: 0 15px; /* Adjust the horizontal spacing between buttons */
     padding: 10px 20px;
     font-size: 16px;
@@ -234,10 +234,13 @@ a {
     width: 175px;
 }
 
-.article-buttons a:hover {
+.article-button:hover {
     background-color: #4682A9;
 }
 
+.is-favorited-button {
+    background-color: red;
+}
 
 
 /* Pagination */

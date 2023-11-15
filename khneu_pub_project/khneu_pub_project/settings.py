@@ -158,3 +158,6 @@ CKEDITOR_CONFIGS = {
         'width': 800,
     },
 }
+
+TIME_ZONE = 'Europe/Kiev'
+USE_TZ = True

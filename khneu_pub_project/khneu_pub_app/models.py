@@ -36,7 +36,7 @@ class Article(models.Model):
     slug = AutoSlugField(populate_from ='name',unique=True)
     content = RichTextField(config_name = 'content_ckeditor')
     created_by = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
-    upload_date = models.DateTimeField(auto_now_add=True)
+    upload_date = models.DateTimeField()
 
     def get_absolute_url(self):
         return reverse('article',kwargs={'slug':self.slug})

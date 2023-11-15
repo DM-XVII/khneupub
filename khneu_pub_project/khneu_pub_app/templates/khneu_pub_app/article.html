@@ -23,7 +23,7 @@
             {%else%}
                 <a href="{% url 'add_to_favorite' article.slug %}" class="article-button">Add to Favorites</a>
             {%endif%}
-            <a class="article-button">Редагувати</a>
+            <a  href="{%url 'update_article' article.slug%}" class="article-button">Редагувати</a>
             <a class="article-button">Видалити</a>
         </div>
     </div>

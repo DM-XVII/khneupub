@@ -11,7 +11,7 @@ urlpatterns = [
     path('search/>', views.search, name='search'),
     path('create_article/>', views.create_article, name='create_article'),
     path('article/<slug:article_slug>/add_to_favorite/', views.add_to_favorite, name='add_to_favorite'),
-
+    path('update_article/<slug:slug>/',views.update_article, name='update_article'),
 
 #Later
     path('about/', views.get_about, name='about'),

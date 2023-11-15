@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm
 from .utils import custom_pagination
@@ -75,7 +75,16 @@ def create_article(request):
     
     return render(request,'khneu_pub_app/create_article.html',{'form':form})
 
-
+def update_article(request,slug):
+    article = get_object_or_404(Article,slug=slug)
+    if request.method =='POST':
+        form = ArticleCreationForm(request.POST,request.FILES,instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('article', slug=article.slug)
+    else:
+        form =ArticleCreationForm(instance=article)
+    return render(request,'khneu_pub_app/update_article.html',{'form':form,'article':article})
 
 
 

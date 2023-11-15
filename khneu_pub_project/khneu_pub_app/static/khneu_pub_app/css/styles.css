@@ -241,6 +241,39 @@ a {
 .is-favorited-button {
     background-color: red;
 }
+/* Delete article */
+.article-delete-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.confirmation-message {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.delete-form {
+    display: inline-block;
+}
+
+.delete-button {
+    background-color: #d9534f; /* Bootstrap's danger color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.cancel-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 1em;
+}
 
 
 /* Pagination */

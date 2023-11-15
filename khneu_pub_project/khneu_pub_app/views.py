@@ -113,6 +113,15 @@ def add_to_favorite(request, article_slug):
 
     return redirect('article', slug=article_slug)
 
+def delete_article(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+
+    if request.method == 'POST':
+        article.delete()
+        return redirect('home')  # Redirect to the article list page
+
+    return render(request, 'khneu_pub_app/delete_article.html', {'article': article})
+
 
 
 #Later

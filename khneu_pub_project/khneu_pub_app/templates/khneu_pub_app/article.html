@@ -4,7 +4,7 @@
 {% block content %}
     <div class="article-container">
         <div class="article-content-wrapper">
-            <h1 class="center">{{ article.name }}</h1>
+            <h1 class="article-title">{{ article.name }}</h1>
             <div class="article-photo">
                 <img src="{{ article.image.url }}" alt="{{ article.name }}">
             </div>
@@ -18,9 +18,13 @@
             </div>
         </div>
         <div class="article-buttons">
-            <button>Вподобати</button>
-            <button>Редагувати</button>
-            <button>Видалити</button>
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_to_favorite' article.slug %}" class="article-button">Add to Favorites</a>
+            {% else %}
+                <p>Login to add to favorites</p>
+            {% endif %}
+            <a class="article-button">Редагувати</a>
+            <a class="article-button">Видалити</a>
         </div>
     </div>
 {% endblock %}

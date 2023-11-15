@@ -45,12 +45,12 @@ def get_faculty(request,slug):
     context = {'subjects':specializations}
     return render(request,'khneu_pub_app/subjects.html',context=context)
 
-def get_specialization(request,slug):
+def get_specialization(request, slug):
     articles = Article.objects.filter(specialization__slug=slug)
-    page = request.GET.get('page', 1)
-    page_obj = custom_pagination(page,articles,2)
-    context = {'subjects':page_obj}
-    return render(request,'khneu_pub_app/subjects.html',context=context)
+    page = request.GET.get('page')
+    subjects = custom_pagination(page, articles, 2)
+    context = {'subjects': subjects}
+    return render(request, 'khneu_pub_app/subjects.html', context=context)
 
 def get_article(request,slug):
     article = Article.objects.get(slug=slug)
@@ -84,6 +84,22 @@ def search(request):
         return render(request,'khneu_pub_app/subjects.html',context = context)
     else:
         return redirect('home')
+
+
+
+def add_to_favorite(request, article_slug):
+    article = Article.objects.get(slug=article_slug)
+
+    # Check if the article is already in the user's favorites
+    favorite_qs = Favorite.objects.filter(user=request.user, article=article)
+    if favorite_qs.exists():
+
+        favorite_qs.delete()
+    else:
+        favorite = Favorite(user=request.user, article=article)
+        favorite.save()
+
+    return redirect('article', slug=article_slug)
 
 
 

@@ -30,11 +30,11 @@ class Specialization(models.Model):
     
 class Article(models.Model):
     name = models.CharField(max_length=255)
-    description = RichTextField()
+    description = RichTextField(config_name ='description_ckeditor')
     image = models.ImageField(upload_to='images/article/')
     specialization = models.ForeignKey('Specialization',on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from ='name',unique=True)
-    content = RichTextField()
+    content = RichTextField(config_name = 'content_ckeditor')
     created_by = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
     upload_date = models.DateTimeField(auto_now_add=True)
 
@@ -52,7 +52,7 @@ class Favorite(models.Model):
 
 
 
-
+#Custom registration
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:

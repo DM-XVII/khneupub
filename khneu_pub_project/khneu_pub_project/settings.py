@@ -137,3 +137,24 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'khneu_pub_app.CustomUser'
+
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': 800,
+    },
+    'description_ckeditor': {
+        'toolbar': 'Basic',
+        'height': 100,
+        'width': 600,
+        'removePlugins': 'image',
+    },
+    'content_ckeditor': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': 800,
+    },
+}

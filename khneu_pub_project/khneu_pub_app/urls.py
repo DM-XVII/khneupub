@@ -10,6 +10,7 @@ urlpatterns = [
     path('article/<slug:slug>', views.get_article, name='article'),
     path('search/>', views.search, name='search'),
     path('create_article/>', views.create_article, name='create_article'),
+    path('article/<slug:article_slug>/add_to_favorite/', views.add_to_favorite, name='add_to_favorite'),
 
 
 #Later

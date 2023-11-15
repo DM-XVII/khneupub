@@ -1,5 +1,6 @@
 # Ignore Django database file
 khneu_pub_project/db.sqlite3
+/khneu_pub_project/settings.py
 
 # Ignore Python byte compiled files
 *.pyc
@@ -30,3 +31,5 @@ logs/
 venv/
 myvenv/
 env/
+media/
+

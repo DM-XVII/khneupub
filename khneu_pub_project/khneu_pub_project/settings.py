@@ -161,3 +161,5 @@ CKEDITOR_CONFIGS = {
 
 TIME_ZONE = 'Europe/Kiev'
 USE_TZ = True
+
+LOGIN_URL = '/login/'

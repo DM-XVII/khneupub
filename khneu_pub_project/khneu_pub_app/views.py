@@ -6,59 +6,66 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
 from .forms import CustomUserCreationForm,ArticleCreationForm
-
+from django.contrib.auth.decorators import login_required
 from .models import *
+
 def register(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data["password"])
-            user.save()
-            return redirect('login')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.set_password(form.cleaned_data["password"])
+                user.save()
+                return redirect('login')
+        else:
+            form = CustomUserCreationForm()
+        return render(request, 'khneu_pub_app/register.html', {'form': form})
     else:
-        form = CustomUserCreationForm()
-    return render(request, 'khneu_pub_app/register.html', {'form': form})
+        return redirect('home')
 
 def custom_login(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request,'Email or password is wrong')
-    return render(request, 'khneu_pub_app/login.html')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            email = request.POST['email']
+            password = request.POST['password']
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                messages.error(request, 'Email or password is wrong')
+        return render(request, 'khneu_pub_app/login.html')
+    else:
+        return redirect('home')
 
-
+@login_required
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        redirect('login')
+        return redirect('login')
 
     return render(request,'khneu_pub_app/logout.html')
 
 #--------------------------------------------------------------
-
+@login_required
 def home(request):
     faculties = Faculty.objects.all()
     context = {'faculties':faculties}
     return render(request,'khneu_pub_app/home.html',context=context)    
-
+@login_required
 def get_faculty(request,slug):
     specializations = Specialization.objects.filter(faculty__slug=slug)
     context = {'subjects':specializations}
     return render(request,'khneu_pub_app/subjects.html',context=context)
-
+@login_required
 def get_specialization(request, slug):
     articles = Article.objects.filter(specialization__slug=slug)
     page = request.GET.get('page')
     subjects = custom_pagination(page, articles, 2)
     context = {'subjects': subjects}
     return render(request, 'khneu_pub_app/subjects.html', context=context)
-
+@login_required
 def get_article(request,slug):
     article = Article.objects.get(slug=slug)
     is_favorited = Favorite.objects.filter(user=request.user, article=article).exists()
@@ -67,6 +74,7 @@ def get_article(request,slug):
                }
     return render(request,'khneu_pub_app/article.html',context=context)
 
+@login_required
 def create_article(request):
     if request.method == 'POST':
         form = ArticleCreationForm(request.POST,request.FILES)
@@ -82,6 +90,7 @@ def create_article(request):
     
     return render(request,'khneu_pub_app/create_article.html',{'form':form})
 
+@login_required
 def update_article(request,slug):
     article = get_object_or_404(Article,slug=slug)
     if request.method =='POST':
@@ -94,7 +103,7 @@ def update_article(request,slug):
     return render(request,'khneu_pub_app/update_article.html',{'form':form,'article':article})
 
 
-
+@login_required
 def search(request):
     if request.method == 'POST':
         search_query = request.POST['search_query']
@@ -105,7 +114,7 @@ def search(request):
         return redirect('home')
 
 
-
+@login_required
 def add_to_favorite(request, article_slug):
     article = Article.objects.get(slug=article_slug)
 
@@ -120,6 +129,7 @@ def add_to_favorite(request, article_slug):
 
     return redirect('article', slug=article_slug)
 
+@login_required
 def delete_article(request, slug):
     article = get_object_or_404(Article, slug=slug)
 
@@ -134,12 +144,17 @@ def delete_article(request, slug):
 #Later
 def get_about(request):
     return render(request,'khneu_pub_app/about.html')
+
+@login_required
 def get_students(request):
     return render(request,'khneu_pub_app/subjects.html')
+@login_required
 def get_teachers(request):
     return render(request,'khneu_pub_app/subjects.html')
 def get_contacts(request):
     return render(request,'khneu_pub_app/contacts.html')
+
+@login_required
 def get_specs(request):
     specs = Specialization.objects.all()
     context = {'subjects':specs}

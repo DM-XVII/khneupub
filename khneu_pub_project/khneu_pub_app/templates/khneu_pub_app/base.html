@@ -9,30 +9,33 @@
 </head>
 <body>
     <div class="top-bar">
-        <div class="top-bar-inner">
-            <div class="search-field-container">
-                <form role="search" method="POST" action="{%url 'search'%}">
-                    {%csrf_token%}
-                    <input 
-                        type="search"
-                        placeholder="Search"
-                        name ="search_query"
-                        required
-                        aria-label="Search"
-                        class="search-field">
-                    <button type="submit" class="search-button">Шукати</button>
-                </form>
-                
-            </div>
-            <div class="top-bar-links">
-                <a href="{%url 'create_article'%}">Створити</a>
-                <a href="{%url 'about'%}">Кабінет</a>
-            </div>
-        </div>
+        {%if user.is_authenticated%}
+            <div class="top-bar-inner">
+                    <div class="search-field-container">
+                        <form role="search" method="POST" action="{%url 'search'%}">
+                            {%csrf_token%}
+                            <input 
+                                type="search"
+                                placeholder="Search"
+                                name ="search_query"
+                                required
+                                aria-label="Search"
+                                class="search-field">
+                            <button type="submit" class="search-button">Шукати</button>
+                        </form>
+                    </div>
+                    <div class="top-bar-links">
+                        <a href="{%url 'create_article'%}">Створити</a>
+                        <a href="{%url 'about'%}">Кабінет</a>
+                    </div>
+            </div>           
+            {%endif%}
     </div>
+
     <div class="sidebar-and-content">
         <div class="side-bar">
             <img src="">
+            {%if user.is_authenticated%}
             <ul>
                 <li><a href="{%url 'home'%}">Головна</a></li>
                 <li><a href="{%url 'students'%}">Студенти</a></li>
@@ -43,6 +46,7 @@
                 <li><a href="{%url 'about'%}">Докладніше</a></li>
             </ul>
             <a href="{%url 'logout'%}" class="logout-link">Вийти</a>
+            {%endif%}
         </div>
         
         <div class="main-content">

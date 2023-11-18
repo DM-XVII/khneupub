@@ -8,28 +8,33 @@
                 {% csrf_token %}
                 <h2>Створення аккаунту</h2>
                 <div class="auth-input">
-                    <label for="id_first_name">First Name:</label>
+                    <label for="id_first_name">Ім'я</label>
                     {{ form.first_name }}
+                    {{form.errors.first_name}}
                 </div>
         
                 <div class="auth-input">
-                    <label for="id_last_name">Last Name:</label>
+                    <label for="id_last_name">Прізвище</label>
                     {{ form.last_name }}
+                    {{form.errors.last_name}}
                 </div>
 
                 <div class="auth-input">
-                    <label for="id_specialization">Specialization:</label>
+                    <label for="id_specialization">Спеціальність</label>
                     {{ form.specialization }}
+                    {{form.errors.specialization}}
                 </div>
 
                 <div class="auth-input">
-                    <label for="id_email">Email:</label>
+                    <label for="id_email">Email</label>
                     {{ form.email }}
+                    {{form.errors.email}}
                 </div>
         
                 <div class="auth-input">
-                    <label for="id_password">Password:</label>
+                    <label for="id_password">Пароль</label>
                     {{ form.password }}
+                    {{form.errors.password}}
                 </div>
 
                 <button type="submit" class="auth-button">Створити</button>
@@ -37,4 +42,12 @@
             <p class="auth-alt">Вже маєте обліковий запис?<a href="{%url 'login'%}"> Увійти</a></p>
         </div>
     </div>
+
+    <script>
+        // Add placeholders using JavaScript
+        document.getElementById("id_first_name").placeholder = "Ваше ім'я";
+        document.getElementById("id_last_name").placeholder = "Ваше прізвище";
+        document.getElementById("id_email").placeholder = "Ваш Email";
+        document.getElementById("id_password").placeholder = "Ваш пароль";
+    </script>
 {% endblock content %}

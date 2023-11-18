@@ -34,7 +34,7 @@ def custom_login(request):
                 login(request, user)
                 return redirect('home')
             else:
-                messages.error(request, 'Email or password is wrong')
+                messages.error(request, 'Email або пароль містить помилку')
         return render(request, 'khneu_pub_app/login.html')
     else:
         return redirect('home')

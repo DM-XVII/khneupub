@@ -1,0 +1,12 @@
+{% extends 'khneu_pub_app/base.html' %}
+
+{% block content %}
+    <div class="article-delete-container">
+        <h2 class="confirmation-message">Вийти з облікового запису?</h2>
+        <form method="post" class="delete-form">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Так,вийти</button>
+            <a href="{% url 'home'%}" class="cancel-link">Ні,повернутися</a>
+        </form>
+    </div>
+{% endblock content %}

@@ -106,8 +106,10 @@ a {
     background-color: #022B3A;
     width: 350px;
     padding: 20px;
+    display: flex;
+    flex-direction: column; /* Ensure it's a column layout */
+    height: 100%; /* Fill the available height */
 }
-
 .side-bar ul {
     list-style: none;
     margin-top: 30px;
@@ -118,6 +120,14 @@ a {
     margin-bottom: 20px;
     cursor: pointer;
     font-size: 20px;
+}
+
+.logout-link {
+    margin-top: auto; /* Stick the logout-link to the bottom */
+    margin-bottom: 0px;
+    margin-left: 20px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .main-content {
@@ -363,3 +373,96 @@ textarea {
 .article-creation-submit-button:hover {
     background-color: #45a049;
 }
+
+
+
+.auth-container {
+    margin: auto;
+    margin-top: 100px;
+    color: #1F7A8C;
+    display: flex;
+    flex: 1;
+    height: 500px;
+    width: 700px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container-reg {
+    margin: auto;
+    margin-top: 100px;
+    color: #1F7A8C;
+    display: flex;
+    flex: 1;
+    height: 635px;
+    width: 700px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-side-bar {
+    background-color: #022B3A;
+    width: 175px;
+    border-radius: 15px 0 0 15px;
+}
+
+.auth-main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    color: #000000;
+}
+
+.auth-alt{
+    margin-top:125px;
+    margin-left: 25px;
+}
+.auth-alt a{
+    color:#1F7A8C;
+    font-weight:600;
+}
+.auth-alt a:hover{
+    color:#4682A9;
+}
+.auth-input {
+    margin-bottom: 15px;
+}
+
+.auth-form {
+    margin-top: 20px;
+}
+
+.auth-form h2 {
+    margin-bottom: 15px;
+    color: #1F7A8C;
+}
+
+
+
+.auth-button {
+    margin-left: 130px;
+    margin-top: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #1F7A8C;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    width: 175px;
+}
+
+.auth-button:hover {
+    background-color: #4682A9;
+}
+
+.errorlist{
+    color:red;
+    margin-left: 10px;
+  }
+  .errorlist{
+    list-style: none;
+  }

@@ -1,5 +1,40 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+{% extends 'khneu_pub_app/base.html' %}
+{% block content %}
+    <div class="auth-container-reg">
+        <div class="auth-side-bar"></div>
+        <div class="auth-main-content">
+            
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+                <h2>Створення аккаунту</h2>
+                <div class="auth-input">
+                    <label for="id_first_name">First Name:</label>
+                    {{ form.first_name }}
+                </div>
+        
+                <div class="auth-input">
+                    <label for="id_last_name">Last Name:</label>
+                    {{ form.last_name }}
+                </div>
+
+                <div class="auth-input">
+                    <label for="id_specialization">Specialization:</label>
+                    {{ form.specialization }}
+                </div>
+
+                <div class="auth-input">
+                    <label for="id_email">Email:</label>
+                    {{ form.email }}
+                </div>
+        
+                <div class="auth-input">
+                    <label for="id_password">Password:</label>
+                    {{ form.password }}
+                </div>
+
+                <button type="submit" class="auth-button">Створити</button>
+            </form>
+            <p class="auth-alt">Вже маєте обліковий запис?<a href="{%url 'login'%}"> Увійти</a></p>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate,logout
 from .forms import CustomUserCreationForm
 from .utils import custom_pagination
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.contrib import messages
 from .forms import CustomUserCreationForm,ArticleCreationForm
 
 from .models import *
@@ -28,10 +29,16 @@ def custom_login(request):
             login(request, user)
             return redirect('home')
         else:
-            # Return an 'invalid login' error message.
-            pass
+            messages.error(request,'Email or password is wrong')
     return render(request, 'khneu_pub_app/login.html')
 
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        redirect('login')
+
+    return render(request,'khneu_pub_app/logout.html')
 
 #--------------------------------------------------------------
 

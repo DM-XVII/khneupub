@@ -147,7 +147,28 @@ def get_about(request):
 
 @login_required
 def get_students(request):
-    return render(request,'khneu_pub_app/subjects.html')
+    specializations = Specialization.objects.all()
+
+
+    
+    if request.method == 'POST':
+        specialization_id = request.POST.get('specialization', None)
+
+        if specialization_id:
+            students = CustomUser.objects.filter(is_staff=False, specialization_id=specialization_id)
+            
+        else:
+            students = CustomUser.objects.filter(is_staff=False)
+    else:
+        students = CustomUser.objects.filter(is_staff=False)
+
+    page = request.GET.get('page')
+    subjects = custom_pagination(page, students, 1)
+    context = {'subjects': subjects, 'specializations': specializations}
+    return render(request, 'khneu_pub_app/students_list.html', context=context)
+
+
+
 @login_required
 def get_teachers(request):
     return render(request,'khneu_pub_app/subjects.html')

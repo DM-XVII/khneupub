@@ -19,8 +19,8 @@
     {% for s in subjects %}
         <div class="user-card">
             <h3>{{ s.specialization.faculty }} | {{ s.specialization }}</h3> 
-            <h1><a href="{{ s.get_absolute_url }}" class="link">{{ s.first_name }} {{ s.last_name }}</a></h1>
-            <a href="{{ s.get_absolute_url }}" class="profile-link"><p>Відкрити профіль</p></a>
+            <h1><a href="{{s.get_absolute_url}}" class="link">{{ s.first_name }} {{ s.last_name }}</a></h1>
+            <a href="{{ s.get_absolute_url}}" class="profile-link"><p>Відкрити профіль</p></a>
         </div>
     {% endfor %}
 </div>

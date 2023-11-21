@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 
 class Faculty(models.Model):
     name = models.CharField(max_length=255)
@@ -91,3 +94,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+    def get_absolute_url(self):
+        return reverse('user_profile',kwargs={'pk':self.pk})
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='profile')
+    photo = models.ImageField(upload_to='images/profile_photo', default='images/profile_photo/default_photo.png')

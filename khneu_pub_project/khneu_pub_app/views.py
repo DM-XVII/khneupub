@@ -141,16 +141,13 @@ def delete_article(request, slug):
 
 
 
-#Later
-def get_about(request):
-    return render(request,'khneu_pub_app/about.html')
+
+
 
 @login_required
 def get_students(request):
     specializations = Specialization.objects.all()
 
-
-    
     if request.method == 'POST':
         specialization_id = request.POST.get('specialization', None)
 
@@ -168,10 +165,22 @@ def get_students(request):
     return render(request, 'khneu_pub_app/students_list.html', context=context)
 
 
+def get_user_profile(request,pk):
 
-@login_required
-def get_teachers(request):
-    return render(request,'khneu_pub_app/subjects.html')
+    student = get_object_or_404(CustomUser,pk=pk)
+    profile = UserProfile.objects.get(user=student)
+    context = {'student':student,
+               'profile':profile}
+    return render(request, 'khneu_pub_app/student_profile.html', context=context)
+
+
+
+
+#Later
+def get_about(request):
+    return render(request,'khneu_pub_app/about.html')
+
+
 def get_contacts(request):
     return render(request,'khneu_pub_app/contacts.html')
 

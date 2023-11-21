@@ -1,0 +1,18 @@
+{% extends 'khneu_pub_app/base.html' %}
+
+{% block content %}
+    <div class="user-profile-container">
+        <div class="user-profile-image">
+            <img src="{% if profile.photo %}{{ profile.photo.url }}{% endif %}" alt="Profile Image">
+        </div>
+        <div class="user-profile-content">
+            <h1>{{ student.last_name }} {{ student.first_name }}</h1>
+            <p>{{ student.specialization.faculty }} | {{ student.specialization }}</p>
+            <p>{{ student.email }}</p>
+            <div class="user-stats">
+                <p>Вподобане</p>
+                <p>Публікації</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

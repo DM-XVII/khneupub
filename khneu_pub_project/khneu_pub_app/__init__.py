@@ -1,0 +1,1 @@
+default_app_config = 'khneu_pub_app.apps.KhneuPubAppConfig'

@@ -534,3 +534,53 @@ textarea {
 .profile-link {
     text-align: right;
 }
+
+
+.user-profile-container {
+    margin: auto;
+    margin-top: 100px;
+    color: #1F7A8C;
+    display: flex;
+    align-items: center; /* Align content vertically in the center */
+    height: 400px; /* Adjusted height */
+    width: 600px; /* Adjusted width */
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-image {
+    padding: 20px; /* Added padding for spacing */
+}
+
+.user-profile-image img {
+    height: 200px; /* Adjusted image size */
+    width: 200px; /* Adjusted image size */
+    border-radius: 50%; /* Rounded image */
+    object-fit: cover; /* Maintain aspect ratio and cover container */
+}
+
+.user-profile-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.user-profile-content h1 {
+    font-size: 28px; /* Increased font size for name */
+    margin-bottom: 8px; /* Added margin for spacing */
+}
+
+.user-profile-content p {
+    font-size: 18px;
+    margin-bottom: 10px; /* Added margin for spacing */
+}
+
+.user-stats {
+    display: flex;
+    justify-content: space-between; /* Space out the stats */
+}
+
+.user-stats p {
+    font-size: 16px;
+    margin: 0; /* Remove default margin */
+}

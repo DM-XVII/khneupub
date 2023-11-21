@@ -174,7 +174,29 @@ def get_user_profile(request,pk):
     return render(request, 'khneu_pub_app/student_profile.html', context=context)
 
 
+def get_user_favorite_list(request, user_pk):
+    favorite_list = Favorite.objects.filter(user=user_pk)
+    
+    article_ids = [favorite.article.id for favorite in favorite_list]
+    
+    articles = Article.objects.filter(pk__in=article_ids)
+    
+    page = request.GET.get('page')
+    paginated_articles = custom_pagination(page, articles, 1)
+    
+    context = {'subjects': paginated_articles}
+    
+    return render(request, 'khneu_pub_app/subjects.html', context=context)
 
+
+def get_user_articles_list(request,user_pk):
+    articles = Article.objects.filter(created_by = user_pk)
+
+    page = request.GET.get('page')
+    paginated_articles = custom_pagination(page, articles, 1)
+    context = {'subjects': paginated_articles}
+    
+    return render(request, 'khneu_pub_app/subjects.html', context=context)
 
 #Later
 def get_about(request):

@@ -10,9 +10,16 @@
             <p>{{ student.specialization.faculty }} | {{ student.specialization }}</p>
             <p>{{ student.email }}</p>
             <div class="user-stats">
-                <p>Вподобане</p>
-                <p>Публікації</p>
+                <a href="{%url 'user_favorite_list' user_pk=student.pk%}"><p>Вподобане</p></a>
+                <a href="{%url 'user_articles_list' user_pk=student.pk%}"><p>Публікації</p></a>
             </div>
+            {%if user == student%}
+                <div class="profile-button-container">
+                    <a href="{%url 'create_article'%}" class="profile-button"><p>Створити</p></a>
+                </div>
+                
+            {%endif%}
+            
         </div>
     </div>
 {% endblock %}

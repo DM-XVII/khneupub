@@ -617,3 +617,42 @@ textarea {
 .profile-button:hover {
     background-color: #155c6e;
 }
+
+/* Add specific styles for the about page */
+.about-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-container h2 {
+    color: #333333;
+    border-bottom: 2px solid #cccccc;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
+
+.about-container p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.about-container ol {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+.about-container ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.about-container li {
+    margin-bottom: 8px;
+}
+
+/* Add more styles as needed */

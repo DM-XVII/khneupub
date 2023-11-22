@@ -51,6 +51,9 @@ class Favorite(models.Model):
     user = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
     article = models.ForeignKey('Article',on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"favorite article of {self.user.last_name} {self.user.first_name}"
+
 
 
 
@@ -101,3 +104,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='profile')
     photo = models.ImageField(upload_to='images/profile_photo', default='images/profile_photo/default_photo.png')
+
+    def __str__(self):
+        return f"profile of {self.user.last_name} {self.user.first_name}"

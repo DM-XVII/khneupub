@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="article-delete-container">
-        <h2 class="confirmation-message">Are you sure you want to delete "{{ article.name }}"?</h2>
+        <h2 class="confirmation-message">Ви впевнені,що хочете видалити публікацію "{{ article.name }}"?</h2>
         <form method="post" class="delete-form">
             {% csrf_token %}
             <button type="submit" class="delete-button">Yes, delete</button>

@@ -44,3 +44,17 @@ class ArticleCreationForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ('name','description','image','specialization','content')
+    
+    def clean(self) -> dict[str, Any]:
+        cleaned_data=super().clean()
+        desc = cleaned_data.get('description')
+        if not desc:
+            self.errors['description'].clear()
+            self.add_error('description','Заповніть будь ласка опис публікації')
+
+        content = cleaned_data.get('content')
+        if not content:
+            self.errors['content'].clear()
+            self.add_error('content','Заповніть будь ласка контент публікації')
+
+        return cleaned_data

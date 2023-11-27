@@ -69,7 +69,7 @@ def get_specialization(request, slug): #TESTED
     return render(request, 'khneu_pub_app/subjects.html', context=context)
 @login_required
 def get_article(request,slug):
-    article = Article.objects.get(slug=slug)
+    article = get_object_or_404(Article,slug=slug)
     is_favorited = Favorite.objects.filter(user=request.user, article=article).exists()
     context = {'article':article,
                'is_favorited':is_favorited,

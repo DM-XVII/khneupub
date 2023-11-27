@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -23,6 +24,8 @@ class Specialization(models.Model):
     faculty = models.ForeignKey('Faculty',on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from ='name',unique=True)
     image = models.ImageField(upload_to='images/specialization/')
+    class Meta:
+        ordering = ['pk']
 
     def get_absolute_url(self):
         return reverse('specialization',kwargs={'slug':self.slug})
@@ -39,7 +42,7 @@ class Article(models.Model):
     slug = AutoSlugField(populate_from ='name',unique=True)
     content = RichTextField(config_name = 'content_ckeditor')
     created_by = models.ForeignKey('CustomUser',on_delete=models.CASCADE)
-    upload_date = models.DateTimeField()
+    upload_date = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
         return reverse('article',kwargs={'slug':self.slug})

@@ -49,18 +49,20 @@ def logout_view(request):
 
 #--------------------------------------------------------------
 @login_required
-def home(request):
+def home(request): #TESTED
     faculties = Faculty.objects.all()
     context = {'faculties':faculties}
     return render(request,'khneu_pub_app/home.html',context=context)    
 @login_required
-def get_faculty(request,slug):
-    specializations = Specialization.objects.filter(faculty__slug=slug)
+def get_faculty(request,slug): #TESTED
+    faculty = get_object_or_404(Faculty,slug=slug)
+    specializations = Specialization.objects.filter(faculty=faculty)
     context = {'subjects':specializations}
     return render(request,'khneu_pub_app/subjects.html',context=context)
 @login_required
-def get_specialization(request, slug):
-    articles = Article.objects.filter(specialization__slug=slug)
+def get_specialization(request, slug): #TESTED
+    specialization = get_object_or_404(Specialization,slug=slug)
+    articles = Article.objects.filter(specialization=specialization).order_by('upload_date')
     page = request.GET.get('page')
     subjects = custom_pagination(page, articles, 2)
     context = {'subjects': subjects}

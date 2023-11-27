@@ -194,15 +194,14 @@ def get_user_articles_list(request,user_pk): #TESTED
     
     return render(request, 'khneu_pub_app/subjects.html', context=context)
 
-#Later
-def get_about(request):
+def get_about(request): #TESTED
     return render(request,'khneu_pub_app/about.html')
 
 
-def get_contacts(request):
+def get_contacts(request): #TESTED
     return render(request,'khneu_pub_app/contacts.html')
 
-@login_required
+@login_required #TESTED
 def get_specs(request):
     specs = Specialization.objects.all()
     context = {'subjects':specs}

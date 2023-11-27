@@ -337,6 +337,3 @@ class GetSpecializationsViewTest(TestCase):
         response = self.client.get(reverse('specs'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response,'/login/?next='+reverse('specs'))   
-
-
-    # Add more test cases as needed

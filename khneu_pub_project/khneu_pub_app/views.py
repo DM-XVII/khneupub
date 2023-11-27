@@ -79,18 +79,18 @@ def get_article(request,slug): #TESTED
 @login_required
 def create_article(request):
     if request.method == 'POST':
-        form = ArticleCreationForm(request.POST,request.FILES)
+        form = ArticleCreationForm(request.POST, request.FILES)
         
         if form.is_valid():
             form.instance.created_by = request.user
             form.instance.upload_date = timezone.now()
             
             form.save()
-            return redirect('home')
+            return redirect('home')  # Add this line to redirect after successful form submission
     else:
         form = ArticleCreationForm()
     
-    return render(request,'khneu_pub_app/create_article.html',{'form':form})
+    return render(request, 'khneu_pub_app/create_article.html', {'form': form})
 
 @login_required
 def update_article(request,slug):

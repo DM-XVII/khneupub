@@ -13,6 +13,9 @@ class Faculty(models.Model):
     slug = AutoSlugField(populate_from ='name',unique=True)
     image = models.ImageField(upload_to='images/faculty/')
 
+    class Meta:
+        ordering = ['pk']
+
     def get_absolute_url(self):
         return reverse('faculty',kwargs={'slug':self.slug})
 

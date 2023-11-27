@@ -68,7 +68,7 @@ def get_specialization(request, slug): #TESTED
     context = {'subjects': subjects}
     return render(request, 'khneu_pub_app/subjects.html', context=context)
 @login_required
-def get_article(request,slug):
+def get_article(request,slug): #TESTED
     article = get_object_or_404(Article,slug=slug)
     is_favorited = Favorite.objects.filter(user=request.user, article=article).exists()
     context = {'article':article,
@@ -106,7 +106,7 @@ def update_article(request,slug):
 
 
 @login_required
-def search(request):
+def search(request): #TESTED
     if request.method == 'POST':
         search_query = request.POST['search_query']
         articles = Article.objects.filter(name__icontains = search_query)
@@ -117,8 +117,8 @@ def search(request):
 
 
 @login_required
-def add_to_favorite(request, article_slug):
-    article = Article.objects.get(slug=article_slug)
+def add_to_favorite(request, article_slug): #TESTED
+    article = get_object_or_404(Article, slug=article_slug)
 
     # Check if the article is already in the user's favorites
     favorite_qs = Favorite.objects.filter(user=request.user, article=article)

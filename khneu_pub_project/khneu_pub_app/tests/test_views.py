@@ -121,6 +121,56 @@ class TestGetFacultySpecializationArticle(TestCase):
         self.client.login(email='testuser@gmail.com',password='testpassword')
         response = self.client.get(reverse('article',kwargs={'slug':'wrong-slug'}))
         self.assertEqual(response.status_code,404)
+    
+    def test_add_to_favorite_toggle(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+
+        self.assertFalse(Favorite.objects.filter(user=self.user, article=self.article).exists())
+
+        response = self.client.post(reverse('add_to_favorite', args=[self.article.slug]))
+
+        self.assertTrue(Favorite.objects.filter(user=self.user, article=self.article).exists())
+
+        response = self.client.post(reverse('add_to_favorite', args=[self.article.slug]))
+
+        self.assertFalse(Favorite.objects.filter(user=self.user, article=self.article).exists())
+
+    
+    def test_add_to_favorite_nonexistent_article(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.post(reverse('add_to_favorite', args=['nonexistent-article']))
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_search_post(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.post(reverse('search'), {'search_query': 'article'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.article, response.context['subjects'])
+        self.assertContains(response, 'article')
+        self.assertNotContains(response, 'Another Article')
+
+    def test_delete_article_post(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.post(reverse('delete_article', args=[self.article.slug]))
+
+        self.assertRedirects(response, reverse('home'))
+
+        self.assertFalse(Article.objects.filter(slug=self.article.slug).exists())
+
+    def test_delete_article_get(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.get(reverse('delete_article', args=[self.article.slug]))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertTemplateUsed(response, 'khneu_pub_app/delete_article.html')
+
+        self.assertEqual(response.context['article'], self.article)
+
+
+
+
 
         
 

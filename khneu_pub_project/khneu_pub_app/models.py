@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 
-class Faculty(models.Model):
+class Faculty(models.Model): #TESTED
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from ='name',unique=True)
     image = models.ImageField(upload_to='images/faculty/')
@@ -22,7 +22,7 @@ class Faculty(models.Model):
     def __str__(self):
         return self.name
  
-class Specialization(models.Model):
+class Specialization(models.Model): #TESTED
     name = models.CharField(max_length=255)
     faculty = models.ForeignKey('Faculty',on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from ='name',unique=True)

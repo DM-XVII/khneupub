@@ -167,12 +167,150 @@ class TestGetFacultySpecializationArticle(TestCase):
         self.assertTemplateUsed(response, 'khneu_pub_app/delete_article.html')
 
         self.assertEqual(response.context['article'], self.article)
+    
+    def test_get_students_view(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.get(reverse('students'))
+
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'khneu_pub_app/students_list.html')
+        self.assertIn('specializations', response.context)
+        self.assertIn('subjects', response.context)
+
+    def test_post_request_with_specialization(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.post(reverse('students'), {'specialization': self.specialization.id})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'khneu_pub_app/students_list.html')
+        self.assertIn('specializations', response.context)
+        self.assertIn('subjects', response.context)
+
+    def test_post_request_without_specialization(self):
+        self.client.login(email='testuser@gmail.com',password='testpassword')
+        response = self.client.post(reverse('students'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'khneu_pub_app/students_list.html')
+        self.assertIn('specializations', response.context)
+        self.assertIn('subjects', response.context)
 
 
 
 
+class GetUserProfileViewTest(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            email='testuser@example.com',
+            password='testpassword',
+            first_name='Test',
+            last_name='User',
+        )
 
-        
+        self.user_profile = UserProfile.objects.filter(user=self.user).first()
 
+        if not self.user_profile:
+            self.user_profile = UserProfile.objects.create(
+                user=self.user,
+                photo='images/profile_photo/test_photo.jpg',  
+            )
+        self.client = Client()
+        self.client.login(email='testuser@example.com', password='testpassword')
+
+    def test_get_user_profile_view(self):
+        response = self.client.get(reverse('user_profile', args=[self.user.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'khneu_pub_app/student_profile.html')
+
+        self.assertIn('student', response.context)
+
+        self.assertIn('profile', response.context)
+        self.assertContains(response, self.user.first_name)
+        self.assertContains(response, self.user.last_name)
+
+        self.assertContains(response, f'<img src="{self.user_profile.photo.url}"')
+
+    def test_get_user_profile_view_with_invalid_pk(self):
+        response = self.client.get(reverse('user_profile', args=[999]))
+        self.assertEqual(response.status_code, 404)
   
+
+class GetUserFavoriteListViewTest(TestCase):
+    def setUp(self):
+        self.faculty = Faculty.objects.create(name ='faculty',image ='media/faculty/123.jpg')
+        self.specialization = Specialization.objects.create(name ='specialization',image ='media/faculty/123.jpg',faculty = self.faculty)
+        self.user = get_user_model().objects.create_user(
+            email='testuser@example.com',
+            password='testpassword',
+            first_name='Test',
+            last_name='User',
+        )
+
+        # Create a client and log in the user
+        self.client = Client()
+        self.client.login(email='testuser@example.com', password='testpassword')
+
+        # Create articles for testing
+        self.article1 = Article.objects.create(name='article1',description='desc',image='media/faculty/123.jpg',
+                                              specialization=self.specialization,content='article content',
+                                              created_by=self.user,upload_date=datetime.datetime.now())  
+
+        # Create favorites for the user
+        self.favorite1 = Favorite.objects.create(user=self.user, article=self.article1)
+
+    def test_get_user_favorite_list_view(self):
+        # Send a GET request to the view
+        response = self.client.get(reverse('user_favorite_list', args=[self.user.id]))
+
+        # Check if the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Check if the template used is correct
+        self.assertTemplateUsed(response, 'khneu_pub_app/subjects.html')
+
+        # Check if the 'subjects' variable is in the context
+        self.assertIn('subjects', response.context)
+
+        # Check if the rendered HTML contains the names of the favorite articles
+        self.assertContains(response, self.article1.name)
+
+class GetUserArticlesListViewTest(TestCase):
+    def setUp(self):
+        self.faculty = Faculty.objects.create(name ='faculty',image ='media/faculty/123.jpg')
+        self.specialization = Specialization.objects.create(name ='specialization',image ='media/faculty/123.jpg',faculty = self.faculty)
+        self.user = get_user_model().objects.create_user(
+            email='testuser@example.com',
+            password='testpassword',
+            first_name='Test',
+            last_name='User',
+        )
+
+        # Create a client and log in the user
+        self.client = Client()
+        self.client.login(email='testuser@example.com', password='testpassword')
+
+        # Create articles for testing
+        self.article1 = Article.objects.create(name='article1',description='desc',image='media/faculty/123.jpg',
+                                              specialization=self.specialization,content='article content',
+                                              created_by=self.user,upload_date=datetime.datetime.now())  
+
+    def test_get_user_articles_list_view(self):
+        # Send a GET request to the view
+        response = self.client.get(reverse('user_articles_list', args=[self.user.id]))
+
+        # Check if the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Check if the template used is correct
+        self.assertTemplateUsed(response, 'khneu_pub_app/subjects.html')
+
+        # Check if the 'subjects' variable is in the context
+        self.assertIn('subjects', response.context)
+
+        # Check if the rendered HTML contains the names of the user's articles
+        self.assertContains(response, self.article1.name)
+
+
 

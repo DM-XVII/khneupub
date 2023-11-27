@@ -132,7 +132,7 @@ def add_to_favorite(request, article_slug): #TESTED
     return redirect('article', slug=article_slug)
 
 @login_required
-def delete_article(request, slug):
+def delete_article(request, slug): #TESTED
     article = get_object_or_404(Article, slug=slug)
 
     if request.method == 'POST':
@@ -142,24 +142,20 @@ def delete_article(request, slug):
     return render(request, 'khneu_pub_app/delete_article.html', {'article': article})
 
 
-
-
-
-
 @login_required
-def get_students(request):
+def get_students(request):#TESTED
     specializations = Specialization.objects.all()
 
     if request.method == 'POST':
         specialization_id = request.POST.get('specialization', None)
 
         if specialization_id:
-            students = CustomUser.objects.filter(is_staff=False, specialization_id=specialization_id)
+            students = CustomUser.objects.filter(is_staff=False, specialization_id=specialization_id).order_by('pk')
             
         else:
-            students = CustomUser.objects.filter(is_staff=False)
+            students = CustomUser.objects.filter(is_staff=False).order_by('pk')
     else:
-        students = CustomUser.objects.filter(is_staff=False)
+        students = CustomUser.objects.filter(is_staff=False).order_by('pk')
 
     page = request.GET.get('page')
     subjects = custom_pagination(page, students, 1)
@@ -167,8 +163,7 @@ def get_students(request):
     return render(request, 'khneu_pub_app/students_list.html', context=context)
 
 
-def get_user_profile(request,pk):
-
+def get_user_profile(request,pk): #TESTED
     student = get_object_or_404(CustomUser,pk=pk)
     profile = UserProfile.objects.get(user=student)
     context = {'student':student,
@@ -176,12 +171,11 @@ def get_user_profile(request,pk):
     return render(request, 'khneu_pub_app/student_profile.html', context=context)
 
 
-def get_user_favorite_list(request, user_pk):
-    favorite_list = Favorite.objects.filter(user=user_pk)
+def get_user_favorite_list(request, user_pk): #TESTED
+    favorites = Favorite.objects.filter(user=user_pk)
     
-    article_ids = [favorite.article.id for favorite in favorite_list]
-    
-    articles = Article.objects.filter(pk__in=article_ids)
+    # Extracting articles directly from favorites
+    articles = [favorite.article for favorite in favorites]
     
     page = request.GET.get('page')
     paginated_articles = custom_pagination(page, articles, 1)
@@ -191,8 +185,8 @@ def get_user_favorite_list(request, user_pk):
     return render(request, 'khneu_pub_app/subjects.html', context=context)
 
 
-def get_user_articles_list(request,user_pk):
-    articles = Article.objects.filter(created_by = user_pk)
+def get_user_articles_list(request,user_pk): #TESTED
+    articles = Article.objects.filter(created_by = user_pk).order_by('pk')
 
     page = request.GET.get('page')
     paginated_articles = custom_pagination(page, articles, 1)
@@ -213,3 +207,5 @@ def get_specs(request):
     specs = Specialization.objects.all()
     context = {'subjects':specs}
     return render(request,'khneu_pub_app/subjects.html',context=context)
+
+

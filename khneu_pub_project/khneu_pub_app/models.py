@@ -113,3 +113,4 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"profile of {self.user.last_name} {self.user.first_name}"
+    

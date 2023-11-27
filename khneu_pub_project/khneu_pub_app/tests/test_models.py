@@ -11,6 +11,7 @@ class FacultyModelTest(TestCase):
         self.assertIsNotNone(self.faculty.image)
         self.assertEqual(self.faculty.slug,'computer-science')
         self.assertEqual(self.faculty.get_absolute_url(), reverse('faculty', kwargs={'slug': self.faculty.slug}))
+        self.assertEqual(self.faculty.__str__(), self.faculty.name)
 
     def test_faculty_ordering(self):
         faculty2 = Faculty.objects.create(
@@ -33,6 +34,7 @@ class SpecializationModelTest(TestCase):
         self.assertEqual(self.specialization.slug,'web-development')
         self.assertIsNotNone(self.specialization.image)
         self.assertEqual(self.specialization.get_absolute_url(), reverse('specialization', kwargs={'slug': self.specialization.slug}))
+        self.assertEqual(self.specialization.__str__(), self.specialization.name)
 
     def test_specialization_ordering(self):
         specialization2 = Specialization.objects.create(
@@ -41,4 +43,5 @@ class SpecializationModelTest(TestCase):
             image='images/faculty/123.jpg'
         )
         self.assertLess(self.specialization.pk, specialization2.pk)
+
 

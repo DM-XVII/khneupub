@@ -20,17 +20,20 @@
                 <label class="article-creation-field-label" for="{{ form.description.id_for_label }}">Введіть опис публікації:</label>
                 {{ form.media }}
                 {{ form.description }}
+                {{form.errors.description}}
             </div>
 
             <div class="form-group">
                 <label class="article-creation-field-label" for="{{ form.content.id_for_label }}">Введіть основний зміст публікації:</label>
                 {{ form.media }}
                 {{ form.content }}
+                {{form.errors.content}}
             </div>
 
             <div class="form-group">
                 <label class="article-creation-field-label" for="{{ form.image.id_for_label }}">Оберіть обкладанку:</label>
                 {{ form.image }}
+                {{form.errors.image}}
             </div>
 
             <button class="article-creation-submit-button" type="submit">Опублікувати</button>

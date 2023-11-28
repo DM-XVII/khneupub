@@ -196,9 +196,6 @@ class TestGetFacultySpecializationArticle(TestCase):
         self.assertIn('specializations', response.context)
         self.assertIn('subjects', response.context)
 
-
-
-
 class GetUserProfileViewTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(

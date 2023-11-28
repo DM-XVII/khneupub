@@ -41,7 +41,7 @@ class CustomUserCreationFormTest(TestCase):
 class ArticleCreationFormTests(TestCase):
     def setUp(self):
         # Create a user for testing purposes
-        self.user = CustomUser.objects.create(email='testuser', password='testpassword')
+        self.user = CustomUser.objects.create(email='testuser@gmail.com', password='testpassword')
 
         self.faculty = Faculty.objects.create(name='Computer Science', image='images/faculty/123.jpg')
         self.specialization = Specialization.objects.create(
@@ -52,7 +52,7 @@ class ArticleCreationFormTests(TestCase):
 
     def test_valid_form_submission(self):
         # Log in the user
-        self.client.login(email='testuser', password='testpassword')
+        self.client.login(email='testuser@gmail.com', password='testpassword')
 
         # Prepare data for a valid form submission
         valid_data = {
@@ -73,7 +73,7 @@ class ArticleCreationFormTests(TestCase):
 
     def test_invalid_form_submission(self):
         # Log in the user
-        self.client.login(email='testuser', password='testpassword')
+        self.client.login(email='testuser@gmail.com', password='testpassword')
 
         # Prepare data for an invalid form submission (missing required fields)
         invalid_data = {
@@ -95,5 +95,62 @@ class ArticleCreationFormTests(TestCase):
             form = response.context['form']
             self.assertTrue(form.errors['name'])
             self.assertTrue(form.errors['content'])
+
+class ArticleUpdatingFormTests(TestCase):
+    def setUp(self):
+        # Create a user for testing purposes
+        self.user = CustomUser.objects.create(email='testuser', password='testpassword')
+
+        self.faculty = Faculty.objects.create(name='Computer Science', image='images/faculty/123.jpg')
+        self.specialization = Specialization.objects.create(
+            name='Web Development',
+            faculty=self.faculty,
+            image='images/faculty/123.jpg'        
+        )
+        self.article =Article.objects.create(
+            name='Test Article',
+            description= 'Test Description',
+            image= 'images/faculty/123.jpg',
+            specialization= self.specialization,
+            content= 'Test Content',
+            created_by =self.user
+        )
+
+    def test_valid_form_submission(self):
+        # Log in the user
+        self.client.login(email='testuser@gmail.com', password='testpassword')
+
+        valid_data = {
+            'name': 'new',
+            'description': 'Test Description',
+            'image': 'images/faculty/123.jpg',
+            'specialization': self.specialization.id,
+            'content': 'Test Content',
+        }
+
+        # Submit the form
+        response = self.client.post(reverse('update_article', kwargs={'slug': self.article.slug}), data=valid_data)
+
+        # Check if the form submission was successful
+        self.assertEqual(response.status_code, 302)
+
+        # Check if the article name has been updated correctly
+
+
+    def test_invalid_form_submission(self):
+        # Log in the user
+        self.client.login(email='testuser', password='testpassword')
+
+        # Prepare data for an invalid form submission (missing required fields)
+        invalid_data = {
+        }
+
+        # Submit the form and follow the redirect
+        response = self.client.post(reverse('update_article',kwargs={'slug':self.article.slug}), data=invalid_data, follow=True)
+
+        # Check that the form submission failed
+        self.assertEqual(response.status_code, 200)  # 200 indicates a failed form submission
+
+
       
 

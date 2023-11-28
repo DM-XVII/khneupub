@@ -9,7 +9,7 @@ from .forms import CustomUserCreationForm,ArticleCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import *
 
-def register(request):
+def register(request): #TESTED
     if not request.user.is_authenticated:
         if request.method == 'POST':
             form = CustomUserCreationForm(request.POST)
@@ -24,7 +24,7 @@ def register(request):
     else:
         return redirect('home')
 
-def custom_login(request):
+def custom_login(request): #TESTED
     if not request.user.is_authenticated:
         if request.method == 'POST':
             email = request.POST['email']
@@ -39,8 +39,8 @@ def custom_login(request):
     else:
         return redirect('home')
 
-@login_required
-def logout_view(request):
+@login_required 
+def logout_view(request): #TESTED
     if request.method == 'POST':
         logout(request)
         return redirect('login')
@@ -77,7 +77,7 @@ def get_article(request,slug): #TESTED
     return render(request,'khneu_pub_app/article.html',context=context)
 
 @login_required
-def create_article(request):
+def create_article(request): #TESTED
     if request.method == 'POST':
         form = ArticleCreationForm(request.POST, request.FILES)
         

@@ -40,7 +40,7 @@ class Specialization(models.Model): #TESTED
 class Article(models.Model):
     name = models.CharField(max_length=255)
     description = RichTextField(config_name ='description_ckeditor')
-    image = models.ImageField(upload_to='images/article/')
+    image = models.ImageField(upload_to='images/article/',default='images/profile_photo/default_photo.png')
     specialization = models.ForeignKey('Specialization',on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from ='name',unique=True)
     content = RichTextField(config_name = 'content_ckeditor')

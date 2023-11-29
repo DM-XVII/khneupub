@@ -2,7 +2,7 @@ import datetime
 from django.test import TestCase,Client
 from django.urls import reverse
 from khneu_pub_app.models import *
-
+from django.core.files.uploadedfile import SimpleUploadedFile
 class TestHomeView(TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(email='testuser@gmail.com', password='testpassword')
@@ -334,3 +334,63 @@ class GetSpecializationsViewTest(TestCase):
         response = self.client.get(reverse('specs'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response,'/login/?next='+reverse('specs'))   
+    
+class EditProfileViewTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            email='test@example.com',
+            first_name='John',
+            last_name='Doe',
+            password='testpassword'
+        )
+        self.faculty = Faculty.objects.create(name ='faculty',image ='media/faculty/123.jpg')
+        self.specialization = Specialization.objects.create(name ='specialization',image ='media/faculty/123.jpg',faculty = self.faculty)
+
+        self.user_profile = UserProfile.objects.get(user=self.user)
+
+    def test_edit_profile_view_get(self):
+        self.client.force_login(self.user)
+        response = self.client.post(reverse('edit_profile', kwargs={'user_id':self.user.id}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'khneu_pub_app/edit_profile.html')
+
+    def test_edit_profile_view_post(self):
+        self.client.force_login(self.user)
+
+        post_data = {
+            'first_name': 'UpdatedFirstName',
+            'last_name': 'UpdatedLastName',
+            'specialization': self.specialization.id,
+        }
+
+ 
+
+        response = self.client.post(reverse('edit_profile', kwargs={'user_id':self.user.id}), post_data)
+
+        self.user.refresh_from_db()
+        self.user_profile.refresh_from_db()
+
+        self.assertEqual(response.status_code, 302)  
+        self.assertEqual(self.user.first_name, 'UpdatedFirstName')
+        self.assertEqual(self.user.last_name, 'UpdatedLastName')
+        self.assertEqual(self.user.specialization, self.specialization)
+
+    def test_edit_profile_view_invalid_post(self):
+        self.client.force_login(self.user)
+
+        post_data = {
+            'first_name': '',  
+            'last_name': 'UpdatedLastName',
+            'specialization': self.specialization.id,
+        }
+
+        response = self.client.post(reverse('edit_profile', kwargs={'user_id':self.user.id}), post_data)
+
+        self.user.refresh_from_db()
+        self.user_profile.refresh_from_db()
+
+        self.assertEqual(response.status_code, 200)  
+        self.assertEqual(self.user.first_name, 'John')  
+        self.assertEqual(self.user.last_name, 'Doe')  
+        self.assertNotEqual(self.user_profile.photo.name, '')  
+

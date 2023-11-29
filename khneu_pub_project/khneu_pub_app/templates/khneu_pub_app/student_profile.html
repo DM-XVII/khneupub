@@ -17,6 +17,9 @@
                 <div class="profile-button-container">
                     <a href="{%url 'create_article'%}" class="profile-button"><p>Створити</p></a>
                 </div>
+                <div>
+                    <a href="{%url 'edit_profile' user_id=student.pk%}" class="profile-button"><p>Редагувати</p></a>
+                </div>
                 
             {%endif%}
             

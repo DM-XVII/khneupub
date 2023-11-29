@@ -5,7 +5,7 @@ from .utils import custom_pagination
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
-from .forms import CustomUserCreationForm,ArticleCreationForm
+from .forms import CustomUserCreationForm,ArticleCreationForm,EditCustomUserForm,EditUserProfileForm
 from django.contrib.auth.decorators import login_required
 from .models import *
 
@@ -47,7 +47,6 @@ def logout_view(request): #TESTED
 
     return render(request,'khneu_pub_app/logout.html')
 
-#--------------------------------------------------------------
 @login_required
 def home(request): #TESTED
     faculties = Faculty.objects.all()
@@ -86,14 +85,14 @@ def create_article(request): #TESTED
             form.instance.upload_date = timezone.now()
             
             form.save()
-            return redirect('home')  # Add this line to redirect after successful form submission
+            return redirect('home')  
     else:
         form = ArticleCreationForm()
     
     return render(request, 'khneu_pub_app/create_article.html', {'form': form})
 
 @login_required
-def update_article(request,slug):
+def update_article(request,slug): #TESTED
     article = get_object_or_404(Article,slug=slug)
     if request.method =='POST':
         form = ArticleCreationForm(request.POST,request.FILES,instance=article)
@@ -171,6 +170,26 @@ def get_user_profile(request,pk): #TESTED
     return render(request, 'khneu_pub_app/student_profile.html', context=context)
 
 
+def edit_profile(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+
+    if request.method == 'POST':
+        user_form = EditCustomUserForm(request.POST, instance=user)
+        profile_form = EditUserProfileForm(request.POST, request.FILES, instance=user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('user_profile', pk=user.id)
+    else:
+        user_form = EditCustomUserForm(instance=user)
+        profile_form = EditUserProfileForm(instance=user.profile)
+
+    return render(
+        request,
+        'khneu_pub_app/edit_profile.html',
+        {'user_form': user_form, 'profile_form': profile_form, 'user': user}
+    )
 def get_user_favorite_list(request, user_pk): #TESTED
     favorites = Favorite.objects.filter(user=user_pk)
     

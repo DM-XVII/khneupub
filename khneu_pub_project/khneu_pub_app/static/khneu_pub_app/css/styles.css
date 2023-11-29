@@ -656,3 +656,40 @@ textarea {
 }
 
 /* Add more styles as needed */
+
+
+/* Article creation */
+.edit-profile-container {
+    max-width: 600px;
+    margin-left:400px;
+}
+
+.profile-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.edit-profile-field-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+
+.edit-profile-submit-button{
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.edit-profile-submit-button:hover {
+    background-color: #45a049;
+}

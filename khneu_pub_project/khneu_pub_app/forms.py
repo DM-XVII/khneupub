@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from .models import CustomUser,Specialization,Article
+from .models import CustomUser,Specialization,Article,UserProfile
 
 
 class CustomUserCreationForm(forms.ModelForm):
@@ -58,3 +58,14 @@ class ArticleCreationForm(forms.ModelForm):
             self.add_error('content','Заповніть будь ласка контент публікації')
 
         return cleaned_data
+
+
+class EditCustomUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name','specialization']
+
+class EditUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['photo']

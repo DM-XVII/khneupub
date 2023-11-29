@@ -1,0 +1,13 @@
+{% extends 'khneu_pub_app/base.html' %}
+
+{% block content %}
+  <div class="edit-profile-container">
+    <form method="post" class="profile-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit" class="edit-profile-submit-button">Save Changes</button>
+      </form>
+  </div>
+  
+{% endblock %}

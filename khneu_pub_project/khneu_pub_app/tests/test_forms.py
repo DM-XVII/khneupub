@@ -36,11 +36,9 @@ class CustomUserCreationFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('first_name', form.errors)
 
-    # Add more test cases for other validation rules...
 
 class ArticleCreationFormTests(TestCase):
     def setUp(self):
-        # Create a user for testing purposes
         self.user = CustomUser.objects.create(email='testuser@gmail.com', password='testpassword')
 
         self.faculty = Faculty.objects.create(name='Computer Science', image='images/faculty/123.jpg')
@@ -51,10 +49,8 @@ class ArticleCreationFormTests(TestCase):
         )
 
     def test_valid_form_submission(self):
-        # Log in the user
         self.client.login(email='testuser@gmail.com', password='testpassword')
 
-        # Prepare data for a valid form submission
         valid_data = {
             'name': 'Test Article',
             'description': 'Test Description',
@@ -63,34 +59,31 @@ class ArticleCreationFormTests(TestCase):
             'content': 'Test Content',
         }
 
-        # Submit the form
+    
         response = self.client.post(reverse('create_article'), data=valid_data)
 
-        # Check that the form submission was successful
-        self.assertEqual(response.status_code, 302)  # 302 indicates a successful form submission
+        
+        self.assertEqual(response.status_code, 302)  
 
-        # Check that the article was created in the databas
+       
 
     def test_invalid_form_submission(self):
-        # Log in the user
+       
         self.client.login(email='testuser@gmail.com', password='testpassword')
 
-        # Prepare data for an invalid form submission (missing required fields)
+      
         invalid_data = {
-            'name': 'aff',  # Missing required field
+            'name': 'aff', 
             'description': 'Test Description',
             'image': 'images/faculty/123.jpg',
             'specialization': self.specialization.id,
-            'content': '',  # Missing required field
+            'content': '',  
         }
 
-        # Submit the form and follow the redirect
         response = self.client.post(reverse('create_article'), data=invalid_data, follow=True)
 
-        # Check that the form submission failed
-        self.assertEqual(response.status_code, 200)  # 200 indicates a failed form submission
+        self.assertEqual(response.status_code, 200)  
 
-        # Check that the form has errors for the missing fields
         if 'form' in response.context:
             form = response.context['form']
             self.assertTrue(form.errors['name'])
@@ -98,7 +91,6 @@ class ArticleCreationFormTests(TestCase):
 
 class ArticleUpdatingFormTests(TestCase):
     def setUp(self):
-        # Create a user for testing purposes
         self.user = CustomUser.objects.create(email='testuser', password='testpassword')
 
         self.faculty = Faculty.objects.create(name='Computer Science', image='images/faculty/123.jpg')
@@ -117,7 +109,6 @@ class ArticleUpdatingFormTests(TestCase):
         )
 
     def test_valid_form_submission(self):
-        # Log in the user
         self.client.login(email='testuser@gmail.com', password='testpassword')
 
         valid_data = {
@@ -128,29 +119,21 @@ class ArticleUpdatingFormTests(TestCase):
             'content': 'Test Content',
         }
 
-        # Submit the form
         response = self.client.post(reverse('update_article', kwargs={'slug': self.article.slug}), data=valid_data)
 
-        # Check if the form submission was successful
         self.assertEqual(response.status_code, 302)
 
-        # Check if the article name has been updated correctly
 
 
     def test_invalid_form_submission(self):
-        # Log in the user
         self.client.login(email='testuser', password='testpassword')
 
-        # Prepare data for an invalid form submission (missing required fields)
         invalid_data = {
         }
 
-        # Submit the form and follow the redirect
         response = self.client.post(reverse('update_article',kwargs={'slug':self.article.slug}), data=invalid_data, follow=True)
 
-        # Check that the form submission failed
-        self.assertEqual(response.status_code, 200)  # 200 indicates a failed form submission
-
+        self.assertEqual(response.status_code, 200)  
 
       
 

@@ -136,7 +136,7 @@ def delete_article(request, slug): #TESTED
 
     if request.method == 'POST':
         article.delete()
-        return redirect('home')  # Redirect to the article list page
+        return redirect('home')  
 
     return render(request, 'khneu_pub_app/delete_article.html', {'article': article})
 
@@ -193,7 +193,6 @@ def edit_profile(request, user_id):
 def get_user_favorite_list(request, user_pk): #TESTED
     favorites = Favorite.objects.filter(user=user_pk)
     
-    # Extracting articles directly from favorites
     articles = [favorite.article for favorite in favorites]
     
     page = request.GET.get('page')

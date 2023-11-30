@@ -21,6 +21,5 @@ urlpatterns = [
     path('about/', views.get_about, name='about'),
     path('students/', views.get_students, name='students'),
     path('specs/', views.get_specs, name='specs'),
-    #Later
     path('contacts/', views.get_contacts, name='contacts'),
 ]
